@@ -14,8 +14,10 @@ client.on('error', (err) => console.log('Redis Client Error', err))
 await client.connect()
 
 
-app.get('/', (req, res) => {
-    res.send("Estudiantes")
+app.get('/', async (req, res) => {
+    let codeStudents = await client.keys('*')
+    if (!codeStudents.length) return res.json(["There are no students"])
+    res.json(codeStudents)
 })
 
 app.get('/student/:codigo', async (req, res) => {
