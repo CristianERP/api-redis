@@ -7,9 +7,9 @@ app.use(express.json())
 
 // Redis Connection
 const client = redis.createClient({
-    host: 'localhost',
-    port: 6379
+    url: 'redis://redis-service:6379'
 })
+
 client.on('error', (err) => console.log('Redis Client Error', err))
 await client.connect()
 
